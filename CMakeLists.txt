@@ -4,12 +4,21 @@ project(unit_test)
 set(CMAKE_CXX_STANDARD 17)
 
 set(SOURCES
-        main.cpp
-        MyMathLib.h
+    main.cpp
+    MyMathLib.h
+    Operations.h
+    Factotial.h
 )
 
+set(TEST_SOURCES
+    tests/test_operaciones.cpp
+    tests/test_factorial.cpp
+    tests/test_main.cpp
+)
 
-add_executable(unit_test main.cpp)
+include_directories(${gtest_SOURCE_DIR}/include)
+
+add_executable(unit_test ${SOURCES})
 
 # Opciones
 option(ENABLE_TESTING "Enable a Unit Testing build." ON)
@@ -27,12 +36,7 @@ FetchContent_MakeAvailable(googletest)
 if(ENABLE_TESTING)
     enable_testing()
 
-    # Archivos de pruebas
-    set(TEST_SOURCES
-        test.cpp
-    )
-
-    # Crear ejecutable de pruebas
+    # Crear ejecutable de pruebas con TODOS los archivos de prueba
     add_executable(test_suite ${TEST_SOURCES})
 
     # Enlazar GoogleTest
